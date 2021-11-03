@@ -81,8 +81,6 @@
                 v-model="selectedTarget"
                 :error-messages="errors"
                 :items="target"
-                item-text="text"
-                item-value="value"
                 label="ターゲット"
                 required
               ></v-select>
@@ -196,8 +194,8 @@ export default {
     inputLandingPoint: "",
     selectedTarget: "",
     target: [
-      {text: "イン", value: true },
-      {text: "アウト", value: false },
+      "イン", 
+      "アウト",
     ],
     inputPylon: "",
   }),
@@ -223,7 +221,7 @@ export default {
             player_id: this.selectedPlayerId,
             time: this.inputTime,
             landing: this.inputLandingPoint,
-            target: this.selectedTarget,
+            target: ( this.selectedTarget == "イン" ),
             pylon: this.inputPylon,
           }
         )
