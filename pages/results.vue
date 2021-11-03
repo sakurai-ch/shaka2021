@@ -17,12 +17,28 @@
       >
         {{ player.name }}
       </v-col>
-      <v-spacer></v-spacer>
       <v-col 
-        cols="2" 
+        cols="3" 
         class="pb-1"
       >
         {{ player.total_point }}点
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col 
+        cols="1" 
+        class="mr-5 pb-1"
+        style="text-align:right"
+      >
+        <v-btn
+          color="gray"
+          class="p-0 error--text"
+          icon
+          dark
+          small
+          @click="openDeletePlayerDialog(player)"
+        >
+          ✖
+        </v-btn>
       </v-col>
 
       <v-col cols="12" class="mt-0 mb-2 pt-0">
@@ -80,7 +96,7 @@
                     icon
                     dark
                     small
-                    @click="setClickedFlight(flight, player)"
+                    @click="openDeleteFlightDialog(flight, player)"
                   >
                     ✖
                   </v-btn>
@@ -93,7 +109,37 @@
     </v-row>
 
     <v-dialog
-      v-model="dialog"
+      v-model="dialogP"
+      persistent
+      max-width="290"
+    >
+      <v-card>
+        <v-card-title class="text-h5 red--text">
+          選手を削除します
+        </v-card-title>
+        <v-card-text>{{ clickedPlayer.name }}さん</v-card-text>
+        <v-card-actions>
+          <v-btn
+            color="success"
+            class="mx-2 mb-4"
+            @click="dialogP = false"
+          >
+            戻る
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="error"
+            class="mx-2 mb-4"
+            @click="deletePlayer(clickedPlayer.id)"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="dialogF"
       persistent
       max-width="290"
     >
@@ -110,7 +156,7 @@
           <v-btn
             color="success"
             class="mx-2 mb-4"
-            @click="dialog = false"
+            @click="dialogF = false"
           >
             戻る
           </v-btn>
@@ -134,9 +180,11 @@ export default {
     header: {
       title: "結果表"
     },
-    dialog: false,
+    dialogF: false,
+    dialogP: false,
     players: [],
     flights: [],
+    clickedPlayer: {},
     clickedFlight: {},
   }),
   created() {
@@ -207,25 +255,45 @@ export default {
       this.flights = resultsData.data.data.flights;
     },
 
-    setClickedFlight(flight, player) {
+    openDeletePlayerDialog(player) {
+      this.clickedPlayer = player;
+      this.dialogP = true;
+    },
+
+    openDeleteFlightDialog(flight, player) {
       this.clickedFlight = flight;
       this.clickedFlight.pylon_point = this.pylonPoint(flight);
       this.clickedFlight.player_name = player.name;
-      this.dialog = true;
+      this.dialogF = true;
     },
 
     async deleteFlight(flightId, playerId) {
       try{
-        const results = await this.$axios.post("/results",
+        await this.$axios.post("/results/flight",
           {
             flight_id: flightId,
             player_id: playerId,
           } 
         );
-        this.dialog = false;
+        this.dialogF = false;
         this.getResults();
       } catch(error) {
-        this.dialog = false;
+        this.dialogF = false;
+        alert("削除できませんでした");
+      }
+    },
+
+    async deletePlayer(playerId) {
+      try{
+        await this.$axios.post("/results/player",
+          {
+            player_id: playerId,
+          } 
+        );
+        this.dialogP = false;
+        this.getResults();
+      } catch(error) {
+        this.dialogP = false;
         alert("削除できませんでした");
       }
     },
