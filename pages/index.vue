@@ -35,6 +35,15 @@
           結果表
         </NuxtLink>
       </v-card>
+      <v-card class="logo py-4 d-flex justify-center link">
+        <NuxtLink 
+          to="/results?edit=true" 
+          tag="div"
+          style="cursor:pointer;"
+        >
+          結果編集
+        </NuxtLink>
+      </v-card>
     </v-col>
   </v-row>
 </template>

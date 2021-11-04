@@ -30,6 +30,7 @@
         style="text-align:right"
       >
         <v-btn
+          v-if="edit"
           color="gray"
           class="p-0 error--text"
           icon
@@ -64,7 +65,10 @@
                 <th class="text-center">
                   パ
                 </th>
-                <th class="text-center">
+                <th 
+                  v-if="edit" 
+                  class="text-center"
+                >
                   <!-- 削除ボタン -->
                 </th>
               </tr>
@@ -93,6 +97,7 @@
                   {{ pylonPoint(flight) }}
                 </td>
                 <td 
+                  v-if="edit"
                   class="text-center px-0" 
                   style="width:20px;"
                 >
@@ -186,6 +191,7 @@ export default {
     header: {
       title: "結果表"
     },
+    edit: false,
     dialogF: false,
     dialogP: false,
     players: [],
@@ -195,6 +201,9 @@ export default {
   }),
   created() {
     this.getResults();
+    if(this.$route.query.edit != null){
+      this.edit = true;
+    }
   },
   mounted() {
     this.updateHeader();
