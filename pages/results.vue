@@ -50,7 +50,10 @@
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-center">
+                <th 
+                  class="text-center"
+                  style="width:100px;"
+                >
                   <!-- 本数 -->
                 </th>
                 <th class="text-center">
@@ -68,6 +71,7 @@
                 <th 
                   v-if="edit" 
                   class="text-center"
+                  style="width:20px;"
                 >
                   <!-- 削除ボタン -->
                 </th>
@@ -80,7 +84,6 @@
               >
                 <td 
                   class="text-center px-0 caption" 
-                  style="width:100px;"
                 >
                   {{ index+1 }}本目
                 </td>
@@ -99,7 +102,6 @@
                 <td 
                   v-if="edit"
                   class="text-center px-0" 
-                  style="width:20px;"
                 >
                   <v-btn
                     color="gray"
@@ -129,6 +131,9 @@
           選手を削除します
         </v-card-title>
         <v-card-text>{{ clickedPlayer.name }}さん</v-card-text>
+        <v-card-text>・技能証：{{ clickedPlayer.has_xcp == true ? "XCP" : "C/P" }}</v-card-text>
+        <v-card-text>・グライダー名：{{ clickedPlayer.glider_name }}</v-card-text>
+        <v-card-text>・グライダータイプ：{{ clickedPlayer.has_kingpost == true ? "ツノなし" : "ツノあり" }}</v-card-text>
         <v-card-actions>
           <v-btn
             color="success"
