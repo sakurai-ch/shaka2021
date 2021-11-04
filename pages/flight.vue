@@ -9,7 +9,7 @@
           <v-col
             cols="12"
             md="7"
-            class="py-1"
+            class="py-0"
           >
             <validation-provider
               v-slot="{ errors }"
@@ -24,6 +24,7 @@
                 item-value="id"
                 label="名前"
                 required
+                class="py-0"
               ></v-select>
             </validation-provider>
 
@@ -32,7 +33,7 @@
           <v-col
             cols="12"
             md="7"
-            class="py-1"
+            class="py-0"
           >
             <validation-provider
               v-slot="{ errors }"
@@ -44,6 +45,7 @@
                 :error-messages="errors"
                 label="フライト時間（分）"
                 required
+                class="py-0"
               ></v-text-field>
             </validation-provider>
           </v-col>
@@ -51,7 +53,7 @@
           <v-col
             cols="12"
             md="7"
-            class="py-1"
+            class="py-0"
           >
             <validation-provider
               v-slot="{ errors }"
@@ -63,6 +65,7 @@
                 :error-messages="errors"
                 label="LD得点（点）"
                 required
+                class="py-0"
               ></v-text-field>
             </validation-provider>
           </v-col>
@@ -70,7 +73,7 @@
           <v-col
             cols="12"
             md="7"
-            class="py-1"
+            class="py-0"
           >
             <validation-provider
               v-slot="{ errors }"
@@ -83,6 +86,7 @@
                 :items="target"
                 label="ターゲット"
                 required
+                class="py-0"
               ></v-select>
             </validation-provider>
           </v-col>
@@ -90,16 +94,18 @@
           <v-col
             cols="12"
             md="7"
-            class="py-1"
+            class="py-0"
           >
             <validation-provider
               v-slot="{ errors }"
-              name="シークレットパイロン（文字入力）"
+              name="パイロン（パラLD）"
+              rules="numeric"
             >
               <v-text-field
-                v-model="inputPylon"
+                v-model="inputPylon1"
                 :error-messages="errors"
-                label="シークレットパイロン（文字入力）"
+                label="パイロン（パラLD）"
+                class="py-0"
               ></v-text-field>
             </validation-provider>
           </v-col>
@@ -107,7 +113,26 @@
           <v-col
             cols="12"
             md="7"
-            class="py-1"
+            class="py-0"
+          >
+            <validation-provider
+              v-slot="{ errors }"
+              name="パイロン（ショップ横）"
+              rules="numeric"
+            >
+              <v-text-field
+                v-model="inputPylon2"
+                :error-messages="errors"
+                label="パイロン（ショップ横）"
+                class="py-0"
+              ></v-text-field>
+            </validation-provider>
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="7"
+            class="py-0"
           >
             <v-dialog
               v-model="dialog"
@@ -136,7 +161,8 @@
                 <v-card-text>フライトタイム：{{ inputTime }}分</v-card-text>
                 <v-card-text>LD得点：{{ inputLandingPoint }}点</v-card-text>
                 <v-card-text>ターゲット：{{ selectedTarget }}</v-card-text>
-                <v-card-text>シークレットパイロン：{{ inputPylon }}</v-card-text>
+                <v-card-text>パイロン（パラLD）：{{ inputPylon1 }}</v-card-text>
+                <v-card-text>パイロン（ショップ横）：{{ inputPylon2 }}</v-card-text>
                 <v-card-actions>
                   <v-btn
                     color="error"
@@ -197,7 +223,8 @@ export default {
       "イン", 
       "アウト",
     ],
-    inputPylon: "",
+    inputPylon1: "",
+    inputPylon2: "",
   }),
   created() {
     this.getPayerNames();
@@ -222,7 +249,8 @@ export default {
             time: this.inputTime,
             landing: this.inputLandingPoint,
             target: ( this.selectedTarget == "イン" ),
-            pylon: this.inputPylon,
+            pylon1: this.inputPylon1,
+            pylon2: this.inputPylon2,
           }
         )
         this.resetForm();
@@ -238,7 +266,8 @@ export default {
       this.inputTime = "";
       this.inputLandingPoint = "";
       this.selectedTarget = "";
-      this.inputPylon = "";
+      this.inputPylon1 = "";
+      this.inputPylon2 = "";
       this.$refs.observer.reset();
     },
   }
