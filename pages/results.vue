@@ -74,22 +74,28 @@
                 v-for="(flight, index) in selectedPlayersFlights(player.id)"
                 :key="flight.id"
               >
-                <td class="text-center">
+                <td 
+                  class="text-center px-0 caption" 
+                  style="width:100px;"
+                >
                   {{ index+1 }}本目
                 </td>
-                <td class="text-center">
+                <td class="text-center px-0">
                   {{ flight.time_point }}
                 </td>
-                <td class="text-center">
+                <td class="text-center px-0">
                   {{ flight.landing_point }}
                 </td>
-                <td class="text-center">
+                <td class="text-center px-0">
                   {{ flight.target_point }}
                 </td>
-                <td class="text-center">
+                <td class="text-center px-0">
                   {{ pylonPoint(flight) }}
                 </td>
-                <td>
+                <td 
+                  class="text-center px-0" 
+                  style="width:20px;"
+                >
                   <v-btn
                     color="gray"
                     class="p-0 error--text"
