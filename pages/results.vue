@@ -79,7 +79,7 @@
             </thead>
             <tbody>
               <tr
-                v-for="(flight, index) in selectedPlayersFlights(player.id)"
+                v-for="(flight, index) in selectedPlayerFlights(player.id)"
                 :key="flight.id"
               >
                 <td 
@@ -208,13 +208,14 @@ export default {
     this.getResults();
     if(this.$route.query.edit != null){
       this.edit = true;
+      this.header.title = "結果編集"
     }
   },
   mounted() {
     this.updateHeader();
   },
   computed: {
-    selectedPlayersFlights: function() {
+    selectedPlayerFlights: function() {
       return (
         (playerId) => {
           return this.flights.filter(element => element.player_id == playerId);
