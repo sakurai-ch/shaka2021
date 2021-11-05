@@ -8,16 +8,7 @@
       sm="8" 
       md="6"
     >
-      <v-card class="logo py-4 d-flex justify-center link">
-        <NuxtLink 
-          to="/register" 
-          tag="div"
-          style="cursor:pointer;"
-        >
-          選手登録
-        </NuxtLink>
-      </v-card>
-      <v-card class="logo py-4 d-flex justify-center link">
+      <v-card class="logo py-4 d-flex justify-center link my-6">
         <NuxtLink 
           to="/flight" 
           tag="div"
@@ -26,7 +17,7 @@
           フライト記録
         </NuxtLink>
       </v-card>
-      <v-card class="logo py-4 d-flex justify-center link">
+      <v-card class="logo py-4 d-flex justify-center link my-6">
         <NuxtLink 
           to="/results" 
           tag="div"
@@ -35,7 +26,16 @@
           結果表
         </NuxtLink>
       </v-card>
-      <v-card class="logo py-4 d-flex justify-center link">
+      <v-card class="logo py-4 d-flex justify-center link my-6 red--text">
+        <NuxtLink 
+          to="/register" 
+          tag="div"
+          style="cursor:pointer;"
+        >
+          選手登録
+        </NuxtLink>
+      </v-card>
+      <v-card class="logo py-4 d-flex justify-center link my-6 red--text">
         <NuxtLink 
           to="/results?edit=true" 
           tag="div"

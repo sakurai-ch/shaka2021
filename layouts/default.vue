@@ -9,7 +9,7 @@
           to="/" 
           tag="div"
           style="cursor:pointer;"
-          v-if='this.title != "フライト記録"'
+          v-if='this.title == "選手登録" || this.title == "結果編集"'
         >
           ⌂
       </NuxtLink>
