@@ -157,7 +157,7 @@
                 <v-card-title class="text-h5">
                   記録を送信します
                 </v-card-title>
-                <v-card-text>名前：{{ selectedPlayerId }}</v-card-text>
+                <v-card-text>名前：{{ selectedPlayerName(selectedPlayerId) }}</v-card-text>
                 <v-card-text>フライトタイム：{{ inputTime }}分</v-card-text>
                 <v-card-text>LD得点：{{ inputLandingPoint }}点</v-card-text>
                 <v-card-text>ターゲット：{{ selectedTarget }}</v-card-text>
@@ -269,6 +269,18 @@ export default {
       this.inputPylon1 = "";
       this.inputPylon2 = "";
       this.$refs.observer.reset();
+    },
+  },
+  computed: {
+    selectedPlayerName: function() {
+      return (
+        (playerId) => {
+          const selectedPlayer = this.players.find((player) => player.id === playerId);
+          if(selectedPlayer != null){
+            return selectedPlayer.name;
+          }
+        }
+      )
     },
   }
 }
